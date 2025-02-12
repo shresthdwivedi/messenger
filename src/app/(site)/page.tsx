@@ -1,16 +1,15 @@
-import { SparklesPreview } from '@/components/SparklesPreview';
-
-import { LoginForm } from '@/components/login-form';
+import GridBackground from '@/components/GridBackground';
+import AuthForm from '@/components/AuthForm';
 import GlowingBorder from '@/components/GlowingBorder';
 
 export default function Home() {
   return (
     <div className="flex h-screen w-screen justify-center items-center">
-      <SparklesPreview>
+      <GridBackground>        
         <GlowingBorder area={"w-auto"}>
-          <LoginForm />
+          <AuthForm />
         </GlowingBorder>
-      </SparklesPreview>
+      </GridBackground>
     </div>
   );
 }

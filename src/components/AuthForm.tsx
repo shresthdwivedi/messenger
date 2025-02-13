@@ -25,7 +25,7 @@ export default function AuthForm({
 }: React.ComponentPropsWithoutRef<"div">) {
 
   const [variant, setVariant] = useState<Variant>('LOGIN')
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { 
     register,

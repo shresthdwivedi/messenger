@@ -18,7 +18,7 @@ const GlowingBorder = ({ area, children }: GlowingBorderProps) => {
           proximity={64}
           inactiveZone={0.01}
         />
-        <div className="relative flex h-full items-center justify-center gap-6 overflow-hidden rounded-xl border-1.75 p-6 dark:shadow-[0px_0px_200px_10px_#2D2D2D] md:p-6">
+        <div className="relative flex h-full items-center justify-center gap-6 overflow-hidden rounded-xl border-1.75 p-6 shadow-[0px_0px_200px_10px_#2D2D2D] md:p-6">
           {children}
         </div>
       </div>

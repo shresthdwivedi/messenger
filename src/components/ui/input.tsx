@@ -3,17 +3,15 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
-import { UseFormRegister, FieldValues, FieldErrors } from "react-hook-form";
+import { FieldErrors, FieldValues } from "react-hook-form";
 
 interface InputProps extends React.ComponentProps<"input"> {
-  register: UseFormRegister<FieldValues>,
-  errors: FieldErrors,
-  required?: boolean,
+  errors: FieldErrors<FieldValues>,
   id: string,
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ id, className, type, register, errors, required, ...props }, ref) => {
+  ({ id, className, type, errors, required, ...props }, ref) => {
     return (
       <div className="flex flex-col">
         <input
@@ -24,7 +22,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             className
           )}
           autoComplete={id} 
-          {...register(id, { required })}
           ref={ref}
           {...props}
         />

@@ -14,8 +14,12 @@ import { Label } from "@/components/ui/label"
 import Image from "next/image"
 import { FiGithub } from "react-icons/fi"
 import { FaGoogle } from "react-icons/fa"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
+import axios from "axios"
+import { toast } from "sonner";
+import { signIn }  from "next-auth/react"
+import { useTheme } from "next-themes";
 
 type Variant = 'LOGIN' | 'REGISTER'
 
@@ -23,6 +27,13 @@ export default function AuthForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+
+  const { setTheme } = useTheme();
+
+  useEffect(() => {
+    setTheme("dark"); 
+    return () => setTheme("system"); 
+  }, []);
 
   const [variant, setVariant] = useState<Variant>('LOGIN')
   const [isLoading, setIsLoading] = useState(false);
@@ -51,19 +62,82 @@ export default function AuthForm({
   }, [variant])
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    
     setIsLoading(true);
+    
+    if (variant === 'REGISTER') {
+      try{
+        const register = async() => {
+          await axios.post('/api/register', data)
+        }
+          toast.promise(register, {
+          loading: 'Loading...',
+          success: 'Account created successfully',
+          error: 'An error occurred',
+        });
+        
+      } finally {
+        setIsLoading(false)
+      }
+    } 
+    
+    else {
+      try{
+        const login = async() => {
+          const callback = await signIn('credentials', {
+            ...data,
+            redirect: false,
+          })
 
-    if(variant === 'REGISTER') {
-      //axios register
-    } else if (variant === 'LOGIN') {
-      //nextauth signin
+          if(callback?.error) {
+            throw new Error(callback.error)
+          }
+        }
+        toast.promise(login, {
+          style: {
+            border: '10px',
+            background: '#333',
+            color: '#fff'
+          },
+          loading: 'Loading...',
+          success: 'Logged In successfully',
+          error: (error) => error.message || 'An error occurred',
+        });
+
+      } finally {
+        setIsLoading(false)
+      }
     }
   }
 
   const socialAction = (action: string) => {
+    
     setIsLoading(true);
 
-    //nextauth sso
+    try{
+      const login = async() => {
+        const callback = await signIn(action, {
+          redirect: false,
+        });
+        
+        if(callback?.error) {
+          throw new Error(callback.error)
+        }
+      }
+
+      toast.promise(login, {
+        style: {
+          border: '10px',
+          background: '#333',
+          color: '#fff'
+        },
+        loading: 'Loading...',
+        success: 'Redirecting...',
+        error: (error) => error.message || 'An error occurred',
+      });
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -105,7 +179,7 @@ export default function AuthForm({
                       type="name"
                       placeholder="Tyler Durden"
                       disabled={isLoading}
-                      register={register}
+                      {...register('name', { required: 'Name is required!' })}
                       errors={errors}
                       required
                     />
@@ -118,7 +192,7 @@ export default function AuthForm({
                     type="email"
                     placeholder="cn@example.com"
                     disabled={isLoading}
-                    register={register}
+                    {...register('email', { required: 'Email is required!' })}
                     errors={errors}
                     required
                   />
@@ -129,7 +203,7 @@ export default function AuthForm({
                     id="password" 
                     type="password" 
                     disabled={isLoading}
-                    register={register}
+                    {...register('password', { required: 'Password is required!' })}
                     errors={errors} 
                     required
                   />

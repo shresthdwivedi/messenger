@@ -18,8 +18,9 @@ import { useCallback, useEffect, useState } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import axios from "axios"
 import { toast } from "sonner";
-import { signIn }  from "next-auth/react"
+import { signIn, useSession }  from "next-auth/react"
 import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
 
 type Variant = 'LOGIN' | 'REGISTER'
 
@@ -29,6 +30,14 @@ export default function AuthForm({
 }: React.ComponentPropsWithoutRef<"div">) {
 
   const { setTheme } = useTheme();
+  const session = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session?.status === 'authenticated') {
+      router.push('/users');
+    }
+  }, [session?.status, router])
 
   useEffect(() => {
     setTheme("dark"); 
@@ -61,84 +70,75 @@ export default function AuthForm({
     }
   }, [variant])
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    
+  const onSubmit: SubmitHandler<FieldValues> = async(data) => {
+
     setIsLoading(true);
-    
+
     if (variant === 'REGISTER') {
-      try{
-        const register = async() => {
-          await axios.post('/api/register', data)
-        }
-          toast.promise(register, {
-          loading: 'Loading...',
-          success: 'Account created successfully',
-          error: 'An error occurred',
-        });
-        
-      } finally {
-        setIsLoading(false)
-      }
-    } 
-    
-    else {
-      try{
-        const login = async() => {
-          const callback = await signIn('credentials', {
-            ...data,
-            redirect: false,
-          })
-
-          if(callback?.error) {
-            throw new Error(callback.error)
-          }
-        }
-        toast.promise(login, {
-          style: {
-            border: '10px',
-            background: '#333',
-            color: '#fff'
-          },
-          loading: 'Loading...',
-          success: 'Logged In successfully',
-          error: (error) => error.message || 'An error occurred',
-        });
-
-      } finally {
-        setIsLoading(false)
-      }
+      await axios.post('api/register', data)
     }
+
+    const loginPromise = signIn('credentials', { ...data, redirect: false })
+
+    toast.loading('Loading...')
+    
+    loginPromise
+    .then((callback) => {
+      if (callback?.error) {
+        toast.dismiss();
+        return Promise.reject(new Error(callback.error));
+      } 
+      else if (callback?.ok) {
+        toast.dismiss();
+        if (variant ==='REGISTER') {
+          toast.success(`Hello ${data.name}`,{
+            description: 'Welcome to Messenger!',
+          })
+        } else {
+          toast.success(`Logged in to ${data.email}`,{
+            description: 'Welcome back!',
+          })
+        }
+        router.push('/users');
+      }
+    })
+    .catch((error) => {
+      toast.error('An error occurred', {
+        description: error.message,
+      });
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
   }
 
   const socialAction = (action: string) => {
-    
     setIsLoading(true);
 
-    try{
-      const login = async() => {
-        const callback = await signIn(action, {
-          redirect: false,
-        });
-        
-        if(callback?.error) {
-          throw new Error(callback.error)
-        }
+    const loginPromise = signIn(action, { redirect: false })
+    
+    toast.promise(loginPromise, {
+      loading: 'Loading...',
+      success: 'Redirecting...',
+      error: (error) => error.message || 'An error occurred',
+    });
+    
+    loginPromise
+    .then((callback) => {
+      if (callback?.error) {
+        return Promise.reject(new Error(callback.error));
+      } 
+      else {
+        router.push('/users');
       }
-
-      toast.promise(login, {
-        style: {
-          border: '10px',
-          background: '#333',
-          color: '#fff'
-        },
-        loading: 'Loading...',
-        success: 'Redirecting...',
-        error: (error) => error.message || 'An error occurred',
-      });
-    } finally {
-      setIsLoading(false)
-    }
-  }
+    })
+    .catch((error) => {
+      toast.error(error.message || 'An error occurred');
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
+  };
 
   return (
     <div className={cn("flex flex-row gap-6", className)} {...props}>

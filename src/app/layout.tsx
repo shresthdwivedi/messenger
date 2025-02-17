@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./provider/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import AuthProvider from "./provider/AuthProvider";
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "500", "700", "900"], 
+  style: ["normal", "italic"], 
+  display: "swap", 
+});
 
 export const metadata: Metadata = {
   title: "Messenger",
@@ -16,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className={roboto.className}>
         <AuthProvider>
         <ThemeProvider
             attribute="class"

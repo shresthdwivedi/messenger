@@ -1,31 +1,37 @@
 import { usePathname } from "next/navigation";
 import useConversation from "./useConversation";
 import { useMemo } from "react";
-import { useTheme } from "next-themes";
-import { HiLogout, HiOutlineUsers } from "react-icons/hi"
-import { signOut } from "next-auth/react";
+import { HiOutlineUsers } from "react-icons/hi"
+import { IoChatbubbleOutline } from "react-icons/io5";
+import { useRouter } from "next/router";
+
+interface ItemProps {
+    label: string;
+    href?: string;
+    icon: any;
+    active?: boolean;
+    onClick?: () => void;
+}
+
 const useRoutes = () => {
     const { conversationId } = useConversation();
     const pathname = usePathname();
-    const { theme } = useTheme();
 
     const routes = useMemo(() => [
         {
             label: 'Chat',
             href: '/conversations',
-            icon: theme === 'dark' ? '/black-chat.svg' : '/white-chat.svg',
+            icon: IoChatbubbleOutline,
+            active: pathname === '/conversations' || !!conversationId,
+
         },
         {
             label: 'Users',
             href: '/users',
             icon: HiOutlineUsers,
+            active: pathname === '/users',
         },
-        {
-            label: 'Logout',
-            onClick: () => signOut(),
-            icon: HiLogout,
-        }
-    ], [pathname, conversationId]) 
+    ] as ItemProps[] , [pathname, conversationId]) 
 
     return routes;
 }

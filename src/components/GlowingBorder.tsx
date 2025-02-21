@@ -9,7 +9,7 @@ interface GlowingBorderProps {
    
 const GlowingBorder = ({ area, children }: GlowingBorderProps) => {
   return (
-    <div className={`min-h-[14rem] items-center justify-center bg-black rounded-3xl ${area}`}>
+    <div className={`min-h-[14rem] items-center justify-center bg-black rounded-3xl`}>
       <div className="relative h-full rounded-2.5xl border p-2 md:rounded-3xl md:p-3">
         <GlowingEffect
           spread={40}

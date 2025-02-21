@@ -15,12 +15,14 @@ import Image from "next/image"
 import { FiGithub } from "react-icons/fi"
 import { FaGoogle } from "react-icons/fa"
 import { useCallback, useEffect, useState } from "react"
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 import axios from "axios"
 import { toast } from "sonner";
 import { signIn, useSession }  from "next-auth/react"
-import { useTheme } from "next-themes";
-import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes"
+import { useRouter } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { loginSchema, LoginSchema, signupSchema, SignupSchema } from "@/lib/authSchema";
 
 type Variant = 'LOGIN' | 'REGISTER'
 
@@ -52,13 +54,10 @@ export default function AuthForm({
     handleSubmit,
     formState: {
       errors,
-    }
-  } = useForm<FieldValues>({
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-    }
+    },
+    reset,
+  } = useForm<(SignupSchema | LoginSchema)>({
+    resolver: zodResolver(variant === 'REGISTER' ? signupSchema : loginSchema),
   })
 
   const toggleVariant = useCallback(() => {
@@ -68,9 +67,9 @@ export default function AuthForm({
     else {
       setVariant('LOGIN');
     }
-  }, [variant])
+  }, [variant, reset])
 
-  const onSubmit: SubmitHandler<FieldValues> = async(data) => {
+  const onSubmit: SubmitHandler<SignupSchema | LoginSchema> = async(data: SignupSchema | LoginSchema) => {
 
     setIsLoading(true);
 
@@ -90,7 +89,7 @@ export default function AuthForm({
       } 
       else if (callback?.ok) {
         toast.dismiss();
-        if (variant ==='REGISTER') {
+        if (variant ==='REGISTER' && 'name' in data) {
           toast.success(`Hello ${data.name}`,{
             description: 'Welcome to Messenger!',
           })
@@ -100,6 +99,7 @@ export default function AuthForm({
           })
         }
         router.push('/users');
+        reset();
       }
     })
     .catch((error) => {
@@ -176,26 +176,32 @@ export default function AuthForm({
                     <Label htmlFor="name">Name</Label>
                     <Input
                       id="name"
-                      type="name"
+                      type="text"
                       placeholder="Tyler Durden"
                       disabled={isLoading}
                       {...register('name', { required: 'Name is required!' })}
                       errors={errors}
                       required
                     />
+                    {'name' in errors && errors.name && (
+                      <p className="text-xs text-red-500">{errors.name.message}</p>
+                    )}
                   </div>
                 )}
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
-                    type="email"
+                    type="text"
                     placeholder="cn@example.com"
                     disabled={isLoading}
                     {...register('email', { required: 'Email is required!' })}
                     errors={errors}
                     required
                   />
+                  {errors.email && (
+                    <p className="text-xs text-red-500">{errors.email.message}</p>
+                  )}
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="password">Password</Label>
@@ -207,7 +213,26 @@ export default function AuthForm({
                     errors={errors} 
                     required
                   />
+                  {errors.password && (
+                    <p className="text-xs text-red-500">{errors.password.message}</p>
+                  )}
                 </div>
+                {variant === 'REGISTER' && (
+                  <div className="grid gap-2">
+                    <Label htmlFor="confirmPassword">Confirm Password</Label>
+                    <Input
+                      id="confirmPassword"
+                      type="password"
+                      disabled={isLoading}
+                      {...register('confirmPassword', { required: 'ConfirmPassword is required!' })}
+                      errors={errors}
+                      required
+                    />
+                  {'confirmPassword' in errors && errors.confirmPassword && (
+                    <p className="text-xs text-red-500">{errors.confirmPassword.message}</p>
+                  )}
+                  </div>
+                )}
                 <Button type="submit" disabled={isLoading} className="w-full font-semibold">
                   {variant=== 'LOGIN' ? 'Login' : 'Register'}
                 </Button>
@@ -237,3 +262,4 @@ export default function AuthForm({
     </div>
   )
 }
+

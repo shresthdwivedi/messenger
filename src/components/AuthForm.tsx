@@ -22,7 +22,7 @@ import { signIn, useSession }  from "next-auth/react"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { loginSchema, LoginSchema, signupSchema, SignupSchema } from "@/lib/authSchema";
+import { loginSchema, LoginSchema, signupSchema, SignupSchema } from "@/lib/types/authSchema";
 
 type Variant = 'LOGIN' | 'REGISTER'
 

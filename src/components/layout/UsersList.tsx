@@ -19,7 +19,7 @@ const UsersList: React.FC<UsersListProps> = ({
       <div className="px-5">
         <div className="flex-col gap-2 flex">
           <div className="flex items-center flex-row justify-between">
-            <h2 className="pl-2 text-2xl font-bold dark:text-neutral-400 text-neutral-800 py-4">People</h2>
+            <h2 className="pl-2 text-2xl font-bold dark:text-neutral-400 text-neutral-800 py-4">Messenger</h2>
             <ModeToggle />
           </div>
             {users.map((user) => (

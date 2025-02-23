@@ -32,7 +32,7 @@ const UserBox: React.FC<UserBoxProps> = ({
         })
         .catch((error) => {
             toast.dismiss()
-            toast.error('An error occurred');
+            toast.error('An error occurred!');
         })
         .finally(() => setIsLoading(false));
 

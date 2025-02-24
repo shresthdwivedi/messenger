@@ -18,10 +18,24 @@ const getConversations = async () => {
                 userIds: {
                     has: currentUser.id,
                 }
+            },
+            include: {
+                users: true,
+                messages: {
+                    include: {
+                        sender: true,
+                        seen: true,
+                    }
+                }
             }
         })
 
+        return conversations;
+
     } catch (error) {
+        console.log('Error while fetching conversations:', error);
         return [];
     }
 }
+
+export default getConversations;

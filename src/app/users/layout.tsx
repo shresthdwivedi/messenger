@@ -2,7 +2,6 @@ import getUsers from "@/actions/getUsers";
 import Sidebar from "@/components/layout/Sidebar";
 import UsersList from "@/components/layout/UsersList";
 
-
 export default async function UsersLayout({
     children,
 }: {

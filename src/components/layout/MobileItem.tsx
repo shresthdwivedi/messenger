@@ -19,11 +19,11 @@ const MobileItem: React.FC<MobileItemProps> = ({
     active,
     onClick,
 }) => {
+    
     const handleClick = () => {
         if(onClick) {
             onClick();
         }
-        
     };
 
     return (

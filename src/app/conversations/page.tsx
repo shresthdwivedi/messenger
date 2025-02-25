@@ -9,7 +9,7 @@ const Page = () => {
     const isOpen = useConversation();
 
     return (
-        <div className={clsx("lg:pl-80 h-full lg:block", isOpen ? 'block' : 'hidden')}>
+        <div className={clsx("pl-80 h-screen lg:block hidden", isOpen ? 'block' : 'hidden')}>
             <EmptyState />
         </div>
     )

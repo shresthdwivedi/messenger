@@ -24,7 +24,7 @@ const ConversationList: React.FC<ConversationListProps> = ({
   const { conversationId, isOpen } = useConversation();
 
   return (
-    <aside className={clsx('fixed inset-y-0 pb-20 lg:pb-0 lg:left-20 lg:w-80 lg:block overflow-y-auto border-r', isOpen ? 'hidden' : 'block-full left-0')}>
+    <aside className={clsx('fixed inset-y-0 pb-20 lg:pb-0 lg:left-20 lg:w-80 lg:block overflow-y-auto border-r w-full', isOpen ? 'hidden' : 'block w-full left-0')}>
       <div className="px-5">
         <div className="flex-col gap-2 flex">
           <div className="flex items-center flex-row justify-between">

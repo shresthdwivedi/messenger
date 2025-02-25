@@ -30,10 +30,10 @@ const Loading = () => {
                     </div>
                 </div>
                 <main className="lg:pl-20 h-full">
-                    <div className="fixed inset-y-0 top-4 flex-col flex">
-                        <div className="mx-6 flex flex-row items-center justify-between w-full">
+                    <div className="fixed inset-y-0 top-4 flex-col flex ">
+                        <div className="mx-6 flex flex-row items-center justify-between w-screen lg:w-full">
                             <Skeleton className="h-8 w-[150px]" />
-                            <div className="flex flex-row gap-8 items-center justify-between">
+                            <div className="flex flex-row gap-8 items-center mr-10">
                                 <Skeleton className="h-4 w-4 rounded-full" />
                                 <Skeleton className="h-4 w-4 rounded-full" />
                             </div>
@@ -41,38 +41,44 @@ const Loading = () => {
                         <div className="mx-6 mt-8 flex-col flex gap-6">
                             <div className="flex items-center space-x-4">
                                 <Skeleton className="h-10 w-10 rounded-2xl" />
-                                <div className="space-y-2 flex items-center">
+                                <div className="space-y-2 flex flex-col justify-center">
                                   <Skeleton className="h-4 w-[150px]" />
+                                  <Skeleton className="h-4 w-[200px]" />
                                 </div>
                             </div>
                             <div className="flex items-center space-x-4">
                                 <Skeleton className="h-10 w-10 rounded-2xl" />
-                                <div className="space-y-2 flex items-center">
-                                  <Skeleton className="h-4 w-[150px]" />
+                                <div className="space-y-2 flex flex-col justify-center">
+                                <Skeleton className="h-4 w-[150px]" />
+                                <Skeleton className="h-4 w-[200px]" />
                                 </div>
                             </div>
                             <div className="flex items-center space-x-4">
                                 <Skeleton className="h-10 w-10 rounded-2xl" />
-                                <div className="space-y-2 flex items-center">
-                                  <Skeleton className="h-4 w-[150px]" />
+                                <div className="space-y-2 flex flex-col justify-center">
+                                <Skeleton className="h-4 w-[150px]" />
+                                <Skeleton className="h-4 w-[200px]" />
                                 </div>
                             </div>
                             <div className="flex items-center space-x-4">
                                 <Skeleton className="h-10 w-10 rounded-2xl" />
-                                <div className="space-y-2 flex items-center">
+                                <div className="space-y-2 flex flex-col justify-center">
                                   <Skeleton className="h-4 w-[150px]" />
+                                  <Skeleton className="h-4 w-[200px]" />
                                 </div>
                             </div>
                             <div className="flex items-center space-x-4">
                                 <Skeleton className="h-10 w-10 rounded-2xl" />
-                                <div className="space-y-2 flex items-center">
+                                <div className="space-y-2 flex flex-col justify-center">
                                   <Skeleton className="h-4 w-[150px]" />
+                                  <Skeleton className="h-4 w-[200px]" />
                                 </div>
                             </div>
                             <div className="flex items-center space-x-4">
                                 <Skeleton className="h-10 w-10 rounded-2xl" />
-                                <div className="space-y-2 flex items-center">
+                                <div className="space-y-2 flex flex-col justify-center">
                                   <Skeleton className="h-4 w-[150px]" />
+                                  <Skeleton className="h-4 w-[200px]" />
                                 </div>
                             </div>
                         </div>

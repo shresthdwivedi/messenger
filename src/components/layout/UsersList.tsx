@@ -22,12 +22,13 @@ const UsersList: React.FC<UsersListProps> = ({
             <h2 className="pl-2 text-2xl font-bold dark:text-neutral-400 text-neutral-800 py-4">Messenger</h2>
             <ModeToggle />
           </div>
-            {users.map((user) => (
-              <UserBox 
-                key={user.id}
-                data={user}
-              />
-            ))}
+          <hr />
+          {users.map((user) => (
+            <UserBox 
+              key={user.id}
+              data={user}
+            />
+          ))}
         </div>
       </div>
     </aside>

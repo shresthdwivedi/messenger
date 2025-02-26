@@ -36,13 +36,14 @@ const ConversationList: React.FC<ConversationListProps> = ({
               <ModeToggle />
             </div>
           </div>
-            {items.map((item) => (
-              <ConversationBox 
-                key={item.id}
-                data={item}
-                selected={conversationId === item.id}
-              />
-            ))}
+          <hr />
+          {items.map((item) => (
+            <ConversationBox 
+              key={item.id}
+              data={item}
+              selected={conversationId === item.id}
+            />
+          ))}
         </div>
       </div>
     </aside>

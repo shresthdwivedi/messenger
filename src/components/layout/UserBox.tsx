@@ -41,7 +41,7 @@ const UserBox: React.FC<UserBoxProps> = ({
     return (
         <div 
         onClick={handleClick}
-        className="relative z-0 overflow-hidden transition-all duration-500 before:absolute before:inset-0 before:-z-10 before:translate-x-[150%] before:translate-y-[150%] before:scale-[2.5] before:rounded-[100%] before:bg-gradient-to-r from-[#9b6dff]/40 before:transition-transform before:duration-1000  hover:before:translate-x-[0%] hover:before:translate-y-[0%] w-full items-center flex flex-row gap-2 p-2 dark:bg-neutral-800 bg-neutral-100 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 cursor-pointer "
+        className="relative z-0 mt-1 overflow-hidden transition-all duration-500 before:absolute before:inset-0 before:-z-10 before:translate-x-[150%] before:translate-y-[150%] before:scale-[2.5] before:rounded-[100%] before:bg-gradient-to-r from-[#9b6dff]/40 before:transition-transform before:duration-1000  hover:before:translate-x-[0%] hover:before:translate-y-[0%] w-full items-center flex flex-row gap-2 p-2  dark:bg-neutral-900 bg-neutral-50 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-900 cursor-pointer "
         >
             <Avatar>
                 <AvatarImage src={data?.image as string} alt="user" />

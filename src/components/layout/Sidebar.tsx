@@ -11,8 +11,8 @@ async function Sidebar({
   const currentUser = await getCurrentUser();
 
   return (
-    <div className="h-full bg-[#FAFAFA] dark:bg-[#18181B]">
-        <DesktopSidebar currentUser={currentUser!} />
+    <div className="h-screen bg-neutral-100 dark:bg-[#18181B]">
+        <DesktopSidebar currentUser={currentUser} />
         <MobileFooter currentUser={currentUser}/>
         <main className="lg:pl-20 h-full">
             {children}

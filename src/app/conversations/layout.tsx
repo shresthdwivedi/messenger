@@ -12,7 +12,7 @@ export default async function ConversationsLayout({
 
     return (
         <Sidebar>
-            <div className="h-full">
+            <div className="h-screen">
                 <ConversationList initialItems={conversations} />
                 {children}
             </div>

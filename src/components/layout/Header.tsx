@@ -1,8 +1,7 @@
 'use client';
 
 import useOtherUser from "@/hooks/useOtherUser";
-import { ConversationType } from "@/lib/types/conversationTypes";
-import { User } from "@prisma/client";
+import { Conversation, User } from "@prisma/client";
 import { useMemo } from "react";
 import Link from "next/link";
 import { IoArrowBack, IoEllipsisHorizontalSharp } from "react-icons/io5";
@@ -11,9 +10,9 @@ import Image from "next/image";
 import { Separator } from "../ui/separator";
 
 interface HeaderProps {
-  conversation: ConversationType & {
-    users: User[],
-  },
+  conversation: Conversation & {
+    users: User[]
+  }
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -33,8 +32,8 @@ const Header: React.FC<HeaderProps> = ({
   }, [conversation.isGroup, conversation.users.length]);
 
   return (
-    <div className="w-full p-5 flex items-center justify-between">
-      <div className="flex flex-row items-center gap-3 ">
+    <div className="fixed w-full top-0 lg:left-[400px] lg:w-[calc(100%-400px)] p-5 flex flex-1 items-center justify-between z-50 backdrop-blur-2xl backdrop-filter">
+      <div className="flex flex-row items-center gap-3">
         <Link
           href={'/conversations'}
           className="cursor-pointer lg:hidden block dark:text-neutral-400 text-neutral-800 dark:hover:text-neutral-500 hover:text-neutral-600"

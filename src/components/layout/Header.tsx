@@ -8,6 +8,18 @@ import { IoArrowBack, IoEllipsisHorizontalSharp } from "react-icons/io5";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Image from "next/image";
 import { Separator } from "../ui/separator";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+import { Button } from "../ui/button";
+
 
 interface HeaderProps {
   conversation: Conversation & {
@@ -30,6 +42,8 @@ const Header: React.FC<HeaderProps> = ({
     return 'Online'
 
   }, [conversation.isGroup, conversation.users.length]);
+
+  const joinDate
 
   return (
     <div className="fixed w-full top-0 lg:left-[400px] lg:w-[calc(100%-400px)] p-5 flex flex-1 items-center justify-between z-50 backdrop-blur-2xl backdrop-filter">
@@ -61,12 +75,32 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       </div>
-      <IoEllipsisHorizontalSharp 
-        size={25} 
-        className="cursor-pointer dark:text-neutral-400 text-neutral-800 dark:hover:text-neutral-500 hover:text-neutral-600"
-        onClick={() => {}}
-      />
+      <div>
+        <Drawer>
+          <DrawerTrigger asChild>
+            <Button variant="ghost">
+              <IoEllipsisHorizontalSharp 
+                size={25} 
+                className="cursor-pointer dark:text-neutral-400 text-neutral-800 dark:hover:text-neutral-500 hover:text-neutral-600"
+              />
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+              <DrawerDescription>This action cannot be undone.</DrawerDescription>
+            </DrawerHeader>
+            <DrawerFooter>
+              <Button>Submit</Button>
+              <DrawerClose>
+                <Button variant="outline">Cancel</Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      </div>
     </div>
+
   )
 }
 

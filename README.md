@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Messenger App
 
-## Getting Started
+A real-time messenger app built with TypeScript, featuring WebSocket-based instant messaging and a modern UI.
 
-First, run the development server:
+🔗 [Live Link](https://messenger-shresth.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Tech Used
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Technology      | Purpose |
+|---------------|------------------------------------------------|
+| [![Next.js](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg)](https://nextjs.org/) | Full-stack React framework for SSR & API routes |
+| [![TypeScript](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg)](https://www.typescriptlang.org/) | Ensures type safety and better developer experience |
+| [![Prisma](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg)](https://www.prisma.io/) | ORM for interacting with the database efficiently |
+| [![Tailwind CSS](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg)](https://tailwindcss.com/) | Utility-first CSS framework for styling |
+| [![Zustand](https://user-images.githubusercontent.com/958486/218346783-72be5ae3-b953-4dd7-b239-788a882fdad6.svg)](https://zustand-demo.pmnd.rs/) | Lightweight and flexible state management library |
+| ![Pusher](https://pusher.com/static/pusher-logo-0576fd4af5c38706f96f632235f3124a.svg) | WebSockets for real-time messaging |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Table of Contents
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- User authentication and authorization
+- Real-time messaging with WebSockets (Pusher)
+- Sticky floating sidebar for chat list
+- Mobile-friendly UI with sidebar toggling
+- Message seen status tracking
+- Responsive design using Tailwind CSS
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository**
 
-## Deploy on Vercel
+   ```bash
+   git clone https://github.com/shresthdwivedi/messenger-app.git
+   cd messenger-app
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Install dependencies**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   pnpm install
+   ```
+
+3. **Set up environment variables**
+
+   Create a `.env` file in the root directory and add the following environment variables:
+
+   ```env
+   DATABASE_URL=your_database_url
+   NEXTAUTH_SECRET=your_nextauth_secret
+   PUSHER_APP_ID=your_pusher_app_id
+   PUSHER_KEY=your_pusher_key
+   PUSHER_SECRET=your_pusher_secret
+   PUSHER_CLUSTER=your_pusher_cluster
+   ```
+
+4. **Start the development server**
+
+   ```bash
+   pnpm dev
+   ```
+
+5. **Build the project for production**
+
+   ```bash
+   pnpm build
+   ```
+
+6. **Run the production build**
+
+   ```bash
+   pnpm start
+   ```
+
+## Usage
+
+1. **Open your browser and navigate to**
+
+   ```
+   http://localhost:3000
+   ```
+

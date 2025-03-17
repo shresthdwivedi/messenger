@@ -10,10 +10,10 @@ A real-time messenger app built with TypeScript, featuring WebSocket-based insta
 |---------------|------------------------------------------------|
 | [![Next.js](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg)](https://nextjs.org/) | Full-stack React framework for SSR & API routes |
 | [![TypeScript](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg)](https://www.typescriptlang.org/) | Ensures type safety and better developer experience |
-| [![Prisma](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg)](https://www.prisma.io/) | ORM for interacting with the database efficiently |
+| [![Prisma](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg)](https://www.prisma.io/) | ORM for interacting with MongoDB efficiently |
 | [![Tailwind CSS](https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg)](https://tailwindcss.com/) | Utility-first CSS framework for styling |
 | [![Zustand](https://user-images.githubusercontent.com/958486/218346783-72be5ae3-b953-4dd7-b239-788a882fdad6.svg)](https://zustand-demo.pmnd.rs/) | Lightweight and flexible state management library |
-| ![Pusher](https://pusher.com/static/pusher-logo-0576fd4af5c38706f96f632235f3124a.svg) | WebSockets for real-time messaging |
+
 
 ## Table of Contents
 

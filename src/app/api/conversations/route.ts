@@ -1,5 +1,6 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import prisma from "@/lib/db";
+import { pusherServer } from "@/lib/pusher";
 import { conversationSchema } from "@/lib/types/conversationsSchema";
 import { NextResponse } from "next/server";
 
@@ -19,6 +20,7 @@ export async function POST(req:Request) {
         if (!currentUser?.id || !currentUser?.email) {
             return new NextResponse('Unauthorized', { status: 401 });
         };
+        
         
         if (isGroup) {
             if (!members || members.length<2 || !name) {
@@ -44,8 +46,15 @@ export async function POST(req:Request) {
                     users: true,
                 }
             })
+            newConversation.users.forEach((user) => {
+                if (user.email) {
+                    pusherServer.trigger(user.email, 'conversation:new', newConversation);
+                }
+            })
+
             return NextResponse.json(newConversation);
         }  
+
 
         const existingConversations = await prisma.conversation.findMany({
             where: {
@@ -87,6 +96,12 @@ export async function POST(req:Request) {
                 users: true,
             }
         });
+
+        newConversation.users.forEach((user) => {
+            if (user.email) {
+                pusherServer.trigger(user.email, 'conversation:new', newConversation);
+            }
+        })
 
         return NextResponse.json(newConversation);
         

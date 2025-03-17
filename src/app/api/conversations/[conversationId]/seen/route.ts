@@ -1,5 +1,6 @@
 import getCurrentUser from '@/actions/getCurrentUser';
 import prisma from '@/lib/db';
+import { pusherServer } from '@/lib/pusher';
 import { NextResponse } from "next/server";
 import { FaTruckMedical } from 'react-icons/fa6';
 
@@ -9,7 +10,7 @@ interface Params {
 
 export async function POST (
   req: Request,
-  { params }: { params: Params},
+  { params }: { params: Promise<Params>},
 ) {
   try {
     const currentUser = await getCurrentUser();
@@ -59,6 +60,17 @@ export async function POST (
         }
       }
     });
+
+    await pusherServer.trigger(currentUser.email, 'conversation:update', {
+      id: conversationId,
+      messages: [updatedMessage],
+    });
+
+    if (lastMessage.seenIds.indexOf(currentUser.id) !== -1) {
+      return NextResponse.json(conversation);
+    }
+
+    await pusherServer.trigger(conversationId!, 'message:update', updatedMessage)
 
     return NextResponse.json(updatedMessage);
 

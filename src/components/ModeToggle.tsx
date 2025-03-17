@@ -15,7 +15,7 @@ export function ModeToggle() {
   
   const handleClick = useCallback(() => {
     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-  }, [resolvedTheme])
+  }, [setTheme])
 
   return (
     <Button variant="ghost" size="icon" onClick={handleClick}>

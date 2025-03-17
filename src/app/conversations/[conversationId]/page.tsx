@@ -9,7 +9,7 @@ interface Params {
   conversationId: string,
 }
 
-const ConversationId = async ({ params }: { params: Params }) => {
+const ConversationId = async ({ params }: { params: Promise<Params> }) => {
   const { conversationId } = await params; 
   const conversation = await getConversationById(conversationId);
   const messages = await getMessages(conversationId);

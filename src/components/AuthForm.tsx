@@ -44,7 +44,7 @@ export default function AuthForm({
   useEffect(() => {
     setTheme("dark"); 
     return () => setTheme("system"); 
-  }, []);
+  }, [setTheme]);
 
   const [variant, setVariant] = useState<Variant>('LOGIN')
   const [isLoading, setIsLoading] = useState(false);
